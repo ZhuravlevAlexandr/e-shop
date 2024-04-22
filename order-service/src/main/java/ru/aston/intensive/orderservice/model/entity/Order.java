@@ -1,39 +1,63 @@
 package ru.aston.intensive.orderservice.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.io.Serializable;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Component
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "Orders")
+public class Order implements Serializable {
+
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "user_id")
-    private Integer userId;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private List<Product> products;
-    @Column(name = "amount")
-    private Integer amount;
-    @Column(name = "date_order")
-    private LocalDateTime dateOrder;
+
+    @Column(name = "client_id")
+    private Integer clientId;
+
+    @Column(name = "name")
+    private String name;
+
+    public Order(Integer clientId, String name) {
+
+        this.clientId = clientId;
+        this.name = name;
+    }
+
+    public Order() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
+
