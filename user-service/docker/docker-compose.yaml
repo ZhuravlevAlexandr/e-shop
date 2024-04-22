@@ -1,0 +1,14 @@
+services:
+  user-service:
+    image: sha256:71445929f3c3dbe968536b533273bb80e819c07ce5c3490db933a604adacd25c
+    container_name: user-service
+    environment:
+      - DATABASE_URL=jdbc:mysql://mysql_users:3306/users
+    depends_on:
+      - mysql_users
+
+  mysql_users:
+    image: mysql:latest
+    container_name: mysql_users
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
